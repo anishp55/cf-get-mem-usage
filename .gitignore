@@ -1,0 +1,11 @@
+__pycache__
+.vscode
+venv
+.creds
+.idea
+pipeline
+payload
+.DS_Store
+.flaskenv
+test.py
+app.py

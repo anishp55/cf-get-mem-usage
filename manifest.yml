@@ -1,0 +1,6 @@
+applications:
+- name: org-memory-usage
+  memory: 64M
+  disk_quota: 384M
+  buildpacks:
+  - python_buildpack

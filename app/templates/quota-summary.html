@@ -1,0 +1,48 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+    Percent Memory Consumed
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Org Name</th>
+                    <th>Quota Name</th>
+                    <th>Mem Usage</th>
+                    <th>Memory Limit</th>
+                    <th>% used</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%  for item in object  %}
+                    {% if item["org-name"] not in exclude %}
+                        <tr>
+                        {% for detail in item %}
+                            <td>
+                                {% if detail == "quota-name" %}<!-- if detail == quota name build a select otherwise just continue -->
+                                          {{ item[detail] }}
+                                {% else %}
+                                    {{ item[detail] }} 
+                                    {%  if detail == "mem-limit" %}
+                                        GB
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                           <td>{{ (item["mem-usage"] /  item["mem-limit"]) * 100 }}%</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if request.form['apply_quota'] != "" %}
+        {{ request.form['apply_quota'] }}
+    {% endif %}
+{% endblock %}
